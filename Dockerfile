@@ -1,7 +1,7 @@
 FROM lsiobase/alpine:3.19 as buildstage
 
 # build variables
-ARG WEBHOOK_RELEASE
+ARG WEBHOOK_VERSION
 
 # hadolint ignore=DL3018
 RUN \
@@ -20,13 +20,13 @@ RUN \
 # hadolint ignore=DL3003,DL4006
 RUN \
     echo "**** fetch source code ****" && \
-    if [ -z ${WEBHOOK_RELEASE+x} ]; then \
-        WEBHOOK_RELEASE=$(curl -sX GET "https://api.github.com/repos/adnanh/webhook/releases/latest" | \
+    if [ -z ${WEBHOOK_VERSION+x} ]; then \
+    WEBHOOK_VERSION=$(curl -sX GET "https://api.github.com/repos/adnanh/webhook/releases/latest" | \
         awk '/tag_name/{print $4;exit}' FS='[""]') \
     ;fi && \
     mkdir -p /tmp/webhook && \
     curl -o /tmp/webhook-src.tar.gz -L \
-        "https://github.com/adnanh/webhook/archive/${WEBHOOK_RELEASE}.tar.gz" && \
+        "https://github.com/adnanh/webhook/archive/${WEBHOOK_VERSION}.tar.gz" && \
     tar xf /tmp/webhook-src.tar.gz -C /tmp/webhook --strip-components=1 && \
     echo "**** compile webhook  ****" && \
     cd /tmp/webhook && \
