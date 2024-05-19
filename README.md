@@ -1,16 +1,15 @@
-# Roxedus/docker-webhook
+# coralhl/webhook-docker
 
 ```yml
 ---
-version: "2.1"
 services:
   webhook:
-    image: roxedus/webhook
+    image: coralhl/webhook
     container_name: webhook
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=Europe/Moscow
       - EXTRA_PARAM=-hotreload #optional
     volumes:
       - /path/to/config:/config

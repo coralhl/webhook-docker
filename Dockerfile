@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.12 as buildstage
+FROM lsiobase/alpine:3.19 as buildstage
 
 # build variables
 ARG WEBHOOK_RELEASE
@@ -34,10 +34,10 @@ RUN \
     go get -d && \
     go build -o /app/webhook
 
-FROM lsiobase/alpine:3.12
+FROM lsiobase/alpine:3.19
 
 # set version label
-LABEL maintainer="Roxedus"
+LABEL maintainer="Coral XCIII"
 
 # copy files from build stage and local files
 COPY --from=buildstage /app/webhook /usr/bin/
