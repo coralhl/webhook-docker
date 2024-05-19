@@ -11,6 +11,8 @@ services:
       - PGID=1000
       - TZ=Europe/Moscow
       - EXTRA_PARAM=-hotreload #optional
+      - CONF_TYPE=yaml
+      # - CONF_TYPE=json
     volumes:
       - /path/to/config:/config
     ports:

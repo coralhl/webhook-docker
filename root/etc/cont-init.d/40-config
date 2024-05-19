@@ -4,8 +4,29 @@
 mkdir -p \
     /config/hooks
 
-if [ ! -f "/config/hooks/hooks.json" ]; then
-    cp /defaults/hooks.json /config/hooks/hooks.json
+yaml_conf() {
+    if [[ ! -f "/config/hooks/hooks.yaml" ]]; then
+        echo "Installing default \"hooks.yaml\"..."
+        cp "/defaults/hooks.yaml" "/config/hooks/hooks.yaml"
+    fi
+}
+
+json_conf() {
+    if [[ ! -f "/config/hooks/hooks.json" ]]; then
+        echo "Installing default \"hooks.json\"..."
+        cp "/defaults/hooks.json" "/config/hooks/hooks.json"
+    fi
+}
+
+if [ ! -z "$CONF_TYPE" ]; then
+    if [[ "$CONF_TYPE" == "yaml" ]]; then
+        yaml_conf
+    fi
+    if [[ "$CONF_TYPE" == "json" ]]; then
+        json_conf
+    fi
+else
+    CONF_TYPE="json"
 fi
 
 chown -R abc:abc \
