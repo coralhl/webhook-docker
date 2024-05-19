@@ -27,6 +27,7 @@ if [ ! -z "$CONF_TYPE" ]; then
     fi
 else
     CONF_TYPE="json"
+    json_conf
 fi
 
 chown -R abc:abc \
