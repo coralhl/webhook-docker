@@ -26,7 +26,6 @@ if [ ! -z "$CONF_TYPE" ]; then
         json_conf
     fi
 else
-    CONF_TYPE="json"
     json_conf
 fi
 

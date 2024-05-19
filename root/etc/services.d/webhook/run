@@ -2,15 +2,27 @@
 # shellcheck shell=bash
 # shellcheck disable=SC2086
 
-if [[ "$CONF_TYPE" == "yaml" ]]; then
+yaml_start() {
     exec \
         s6-setuidgid abc webhook \
         -hooks /config/hooks/hooks.yaml \
         -ip 0.0.0.0 ${EXTRA_PARAM:=-hotreload}
-fi
-if [[ "$CONF_TYPE" == "json" ]]; then
+}
+
+json_start() {
     exec \
         s6-setuidgid abc webhook \
         -hooks /config/hooks/hooks.json \
         -ip 0.0.0.0 ${EXTRA_PARAM:=-hotreload}
+}
+
+if [ ! -z "$CONF_TYPE" ]; then
+    if [[ "$CONF_TYPE" == "yaml" ]]; then
+        yaml_start
+    fi
+    if [[ "$CONF_TYPE" == "json" ]]; then
+        json_start
+    fi
+else
+    json_start
 fi
